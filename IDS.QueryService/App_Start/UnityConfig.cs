@@ -3,7 +3,6 @@ namespace IDS.QueryService
     using Microsoft.Practices.Unity;
     using System.Web.Http;
     using Unity.WebApi;
-    using System.Configuration;
 
     public static class UnityConfig
     {

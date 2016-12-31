@@ -4,7 +4,7 @@ Microsoft.AspNet.WebApi.Owin
 Microsoft.AspNet.WebApi.Cors
 
 Unity.WebAPI
-Topshelf.Owin
+Topshelf
 System.ServiceProcess
 
 Swashbuckle

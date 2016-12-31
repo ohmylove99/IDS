@@ -19,45 +19,13 @@
 
             //Add unity container
             UnityConfig.Setup(config);
+            SwaggerConfig.Setup(config);
+            FormatterConfig.Setup(config);
+            RouteConfig.Setup(config);
 
             // Add Console Logger
-            
-
-            appBuilder.Use<LoggingMiddleware>(); appBuilder.Use<Logger>();
-
-            config.Formatters.Clear();
-            config.Formatters.Add(new JsonMediaTypeFormatter());
-
-            config.Formatters.JsonFormatter.SerializerSettings =
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                };
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
-            config.Routes.MapHttpRoute(
-            name: "ApiWithActionAndName",
-            routeTemplate: "api/{controller}/{action}/{name}",
-            defaults: null,
-            constraints: new { name = @"^[a-z]+$" }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "ApiWithAction",
-                routeTemplate: "api/{controller}/{action}",
-                defaults: new { action = "Get" }
-            );
-
-            //config.Routes.IgnoreRoute("favicon.ico", "{*favicon.ico}");
-
-            config
-            .EnableSwagger(c => c.SingleApiVersion("v1", "IDS.QueryService"))
-            .EnableSwaggerUi();
+            //appBuilder.Use<LoggingMiddleware>();
+            appBuilder.Use<Logger>();
 
             appBuilder.UseWebApi(config);
         }

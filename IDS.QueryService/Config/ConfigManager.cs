@@ -9,6 +9,5 @@ namespace IDS.QueryService.Config
     public class ConfigManager
     {
         public int Port { get; private set; }
-
     }
 }
