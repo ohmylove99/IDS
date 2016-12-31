@@ -1,10 +1,17 @@
-﻿namespace Owin.Docker
+﻿namespace IDS.QueryService
 {
-    using IDS.QueryService;
     using System;
     using Topshelf;
+    /// <summary>
+    /// 
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static int Main(string[] args)
         {
             return (int)HostFactory.Run(x =>

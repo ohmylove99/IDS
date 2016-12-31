@@ -8,11 +8,16 @@
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class Logger
     {
         private readonly Func<IDictionary<string, object>, Task> _next;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="next"></param>
         public Logger(Func<IDictionary<string, object>, Task> next)
         {
             if (next == null)

@@ -5,8 +5,15 @@ using System.Web.Http;
 
 namespace IDS.QueryService
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class FormatterConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
         public static void Setup(HttpConfiguration config)
         {
             config.Formatters.Clear();

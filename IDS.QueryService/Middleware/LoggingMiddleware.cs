@@ -4,8 +4,15 @@ using System.Threading.Tasks;
 
 namespace IDS.QueryService.Middleware
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LoggingMiddleware : OwinMiddleware
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="next"></param>
         public LoggingMiddleware(OwinMiddleware next) : base(next)
         {
         }

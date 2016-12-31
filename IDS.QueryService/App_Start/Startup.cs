@@ -1,34 +1,39 @@
 ﻿namespace IDS.QueryService
 {
     using Microsoft.Owin.Hosting;
-    using Middleware;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
     using Owin;
-    using Swashbuckle.Application;
     using System;
-    using System.Net.Http.Formatting;
     using System.Web.Http;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class OwinService
     {
         private IDisposable _webApp;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Start()
         {
             _webApp = WebApp.Start<Startup>("http://+:9000");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Stop()
         {
             _webApp.Dispose();
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup
     {
-        // This code configures Web API. The Startup class is specified as a type
-        // parameter in the WebApp.Start method.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appBuilder"></param>
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = new HttpConfiguration();

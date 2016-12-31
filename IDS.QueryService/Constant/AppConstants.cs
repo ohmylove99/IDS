@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IDS.QueryService.Constant
+﻿namespace IDS.QueryService.Constant
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AppConstants
     {
     }

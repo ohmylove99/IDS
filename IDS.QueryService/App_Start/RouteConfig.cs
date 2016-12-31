@@ -1,7 +1,9 @@
 namespace IDS.QueryService
 {
     using System.Web.Http;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class RouteConfig
     {
         public static void Setup(HttpConfiguration config)
