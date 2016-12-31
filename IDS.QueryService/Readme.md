@@ -4,8 +4,16 @@ Microsoft.AspNet.WebApi.Owin
 Microsoft.AspNet.WebApi.Cors
 
 Unity.WebAPI
+
 Topshelf
 System.ServiceProcess
 
 Swashbuckle
+
+Serilog
+	Serilog.Sinks.Literate
+	Serilog.Sinks.RollingFile
+	Serilog.Settings.AppSettings
+	Topshelf.Serilog
+		x.UseSerilog();
 ```

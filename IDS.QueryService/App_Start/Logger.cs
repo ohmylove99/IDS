@@ -1,6 +1,7 @@
 ﻿namespace IDS.QueryService
 {
     using Constant;
+    using Serilog;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -50,12 +51,12 @@
             }
             environment[OwinConstants.RequestBody] = new MemoryStream(Encoding.UTF8.GetBytes(requestBody));
 
-            Console.WriteLine("Entry\t{0}\t{1}\t{2}", method, path, requestBody);
+            Log.Information("Entry\t{0}\t{1}\t{2}", method, path, requestBody);
 
             Stopwatch stopWatch = Stopwatch.StartNew();
             return _next(environment).ContinueWith(t =>
             {
-                Console.WriteLine("Exit\t{0}\t{1}\t{2}\t{3}\t{4}", method, path, stopWatch.ElapsedMilliseconds,
+                Log.Information("Exit\t{0}\t{1}\t{2}\t{3}\t{4}", method, path, stopWatch.ElapsedMilliseconds,
                     GetValueFromEnvironment(environment, OwinConstants.ResponseStatusCode),
                     GetValueFromEnvironment(environment, OwinConstants.ResponseReasonPhrase));
                 return t;

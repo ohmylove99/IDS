@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+using Serilog;
 using System;
 using System.Threading.Tasks;
 
@@ -20,10 +21,10 @@ namespace IDS.QueryService.Middleware
         public async override Task Invoke(IOwinContext context)
         {
             if (!IgnoreRoutes(context.Request.Path.ToString()))
-                Console.WriteLine("Begin Request");
+                Log.Information("Begin Request");
             await Next.Invoke(context);
             if (!IgnoreRoutes(context.Request.Path.ToString()))
-                Console.WriteLine("End Request");
+                Log.Information("End Request");
         }
 
         private bool IgnoreRoutes(string path)

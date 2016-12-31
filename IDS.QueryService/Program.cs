@@ -1,5 +1,6 @@
 ﻿namespace IDS.QueryService
 {
+    using Serilog;
     using System;
     using Topshelf;
     /// <summary>
@@ -14,6 +15,10 @@
         /// <returns></returns>
         public static int Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                          .ReadFrom.AppSettings()
+                          .CreateLogger();
+
             return (int)HostFactory.Run(x =>
             {
                 x.RunAsLocalSystem();
@@ -25,11 +30,12 @@
                     s.WhenStarted(service => service.Start());
                     s.WhenStopped(service => service.Stop());
                 });
-                x.SetDisplayName("IDS Query Service");
-                x.SetDescription("IDS Query Service");
+                x.SetDisplayName("IDS Query Service Display");
+                x.SetDescription("IDS Query Service Description");
                 x.SetServiceName("IDS.QueryService");
                 x.StartAutomatically();
                 x.EnableShutdown();
+                x.UseSerilog();
             });
         }
     }
