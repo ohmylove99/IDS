@@ -22,11 +22,21 @@
             _next = next;
         }
 
+        private bool IgnoreRoutes(string path)
+        {
+            if (!string.IsNullOrEmpty(path) && path.StartsWith("/swagger"))
+                return true;
+            return false;
+        }
+
         public Task Invoke(IDictionary<string, object> environment)
         {
-            string method = GetValueFromEnvironment(environment, OwinConstants.RequestMethod);
             string path = GetValueFromEnvironment(environment, OwinConstants.RequestPath);
+            bool ignore = IgnoreRoutes(path);
+            if (ignore)
+                return _next.Invoke(environment);
 
+            string method = GetValueFromEnvironment(environment, OwinConstants.RequestMethod);
             string requestBody;
             Stream stream = (Stream)environment[OwinConstants.RequestBody];
             using (StreamReader sr = new StreamReader(stream))

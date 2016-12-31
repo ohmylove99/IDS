@@ -4,6 +4,7 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using Owin;
+    using Swashbuckle.Application;
     using System.Net.Http.Formatting;
     using System.Web.Http;
 
@@ -34,10 +35,29 @@
                 };
 
             config.Routes.MapHttpRoute(
-                name: "api",
+                name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+            name: "ApiWithActionAndName",
+            routeTemplate: "api/{controller}/{action}/{name}",
+            defaults: null,
+            constraints: new { name = @"^[a-z]+$" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ApiWithAction",
+                routeTemplate: "api/{controller}/{action}",
+                defaults: new { action = "Get" }
+            );
+
+            //config.Routes.IgnoreRoute("favicon.ico", "{*favicon.ico}");
+
+            config
+            .EnableSwagger(c => c.SingleApiVersion("v1", "IDS.QueryService"))
+            .EnableSwaggerUi();
 
             appBuilder.UseWebApi(config);
         }

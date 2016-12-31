@@ -10,7 +10,7 @@
         [HttpGet]
         public async Task<HttpResponseMessage> Get()
         {
-            HttpResponseMessage response = Request.CreateResponse<string>(HttpStatusCode.OK, "Hello Sogeti!");
+            HttpResponseMessage response = Request.CreateResponse<string>(HttpStatusCode.OK, "Hello World!");
             return response;
         }
     }

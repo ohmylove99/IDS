@@ -12,9 +12,18 @@ namespace IDS.QueryService.Middleware
 
         public async override Task Invoke(IOwinContext context)
         {
-            Console.WriteLine("Begin Request");
+            if (!IgnoreRoutes(context.Request.Path.ToString()))
+                Console.WriteLine("Begin Request");
             await Next.Invoke(context);
-            Console.WriteLine("End Request");
+            if (!IgnoreRoutes(context.Request.Path.ToString()))
+                Console.WriteLine("End Request");
+        }
+
+        private bool IgnoreRoutes(string path)
+        {
+            if (!string.IsNullOrEmpty(path) && path.StartsWith("/swagger"))
+                return true;
+            return false;
         }
     }
 }
