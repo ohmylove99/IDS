@@ -14,6 +14,8 @@
     /// </summary>
     public class Logger
     {
+        private readonly ILogger _log = Log.ForContext<Logger>();
+
         private readonly Func<IDictionary<string, object>, Task> _next;
         /// <summary>
         /// 
@@ -27,19 +29,16 @@
             }
             _next = next;
         }
-
-        private bool IgnoreRoutes(string path)
-        {
-            if (!string.IsNullOrEmpty(path) && path.StartsWith("/swagger"))
-                return true;
-            return false;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="environment"></param>
+        /// <returns></returns>
         public Task Invoke(IDictionary<string, object> environment)
         {
             string path = GetValueFromEnvironment(environment, OwinConstants.RequestPath);
-            bool ignore = IgnoreRoutes(path);
-            if (ignore)
+
+            if (IgnoreLogRoutes(path))
                 return _next.Invoke(environment);
 
             string method = GetValueFromEnvironment(environment, OwinConstants.RequestMethod);
@@ -51,12 +50,12 @@
             }
             environment[OwinConstants.RequestBody] = new MemoryStream(Encoding.UTF8.GetBytes(requestBody));
 
-            Log.Information("Entry\t{0}\t{1}\t{2}", method, path, requestBody);
+            _log.Information("Entry\t{0}\t{1}\t{2}", method, path, requestBody);
 
             Stopwatch stopWatch = Stopwatch.StartNew();
             return _next(environment).ContinueWith(t =>
             {
-                Log.Information("Exit\t{0}\t{1}\t{2}\t{3}\t{4}", method, path, stopWatch.ElapsedMilliseconds,
+                _log.Information("Exit\t{0}\t{1}\t{2}\t{3}\t{4}", method, path, stopWatch.ElapsedMilliseconds,
                     GetValueFromEnvironment(environment, OwinConstants.ResponseStatusCode),
                     GetValueFromEnvironment(environment, OwinConstants.ResponseReasonPhrase));
                 return t;
@@ -68,6 +67,17 @@
             object value;
             environment.TryGetValue(key, out value);
             return Convert.ToString(value, CultureInfo.InvariantCulture);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool IgnoreLogRoutes(string path)
+        {
+            if (!string.IsNullOrEmpty(path) && (path.StartsWith("/swagger") || path.StartsWith("/metrics")))
+                return true;
+            return false;
         }
     }
 }

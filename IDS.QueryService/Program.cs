@@ -1,5 +1,6 @@
 ﻿namespace IDS.QueryService
 {
+    using Config;
     using Serilog;
     using System;
     using Topshelf;
@@ -17,6 +18,8 @@
         {
             Log.Logger = new LoggerConfiguration()
                           .ReadFrom.AppSettings()
+                          .Enrich.WithThreadId()
+                          .Enrich.FromLogContext()
                           .CreateLogger();
 
             return (int)HostFactory.Run(x =>

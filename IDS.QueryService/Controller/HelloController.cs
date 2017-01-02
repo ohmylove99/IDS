@@ -9,6 +9,10 @@
     /// </summary>
     public class HelloController : ApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<HttpResponseMessage> Get()
         {

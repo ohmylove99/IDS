@@ -6,6 +6,10 @@ namespace IDS.QueryService
     /// </summary>
     public static class RouteConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
         public static void Setup(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
@@ -14,18 +18,18 @@ namespace IDS.QueryService
                  defaults: new { id = RouteParameter.Optional }
              );
 
-            config.Routes.MapHttpRoute(
-                name: "ApiWithActionAndName",
-                routeTemplate: "api/{controller}/{action}/{name}",
-                defaults: null,
-                constraints: new { name = @"^[a-z]+$" }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "ApiWithActionAndName",
+            //    routeTemplate: "api/{controller}/{action}/{name}",
+            //    defaults: null,
+            //    constraints: new { name = @"^[a-z]+$" }
+            //);
 
-            config.Routes.MapHttpRoute(
-                name: "ApiWithAction",
-                routeTemplate: "api/{controller}/{action}",
-                defaults: new { action = "Get" }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "ApiWithAction",
+            //    routeTemplate: "api/{controller}/{action}",
+            //    defaults: new { action = "Get" }
+            //);
 
             config.Routes.IgnoreRoute("favicon.ico", "{*favicon.ico}");
         }
