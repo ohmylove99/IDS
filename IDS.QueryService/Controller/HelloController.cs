@@ -4,6 +4,8 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using System.Web.Http.Description;
+
     /// <summary>
     /// 
     /// </summary>
@@ -14,6 +16,7 @@
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ResponseType(typeof(string))]
         public async Task<HttpResponseMessage> Get()
         {
             HttpResponseMessage response = Request.CreateResponse<string>(HttpStatusCode.OK, "Hello World!");
