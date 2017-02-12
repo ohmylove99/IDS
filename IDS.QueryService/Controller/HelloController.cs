@@ -1,5 +1,6 @@
 ﻿namespace IDS.QueryService.Controller
 {
+    using Service;
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -9,17 +10,36 @@
     /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("api/Hello")]
     public class HelloController : ApiController
     {
+        private IHelloService helloService;
+
+        public HelloController(IHelloService helloService)
+        {
+            this.helloService = helloService;
+        }
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(string))]
-        public async Task<HttpResponseMessage> Get()
+        [Route("SayHello")]
+        public async Task<HttpResponseMessage> SayHello(string username)
         {
-            HttpResponseMessage response = Request.CreateResponse<string>(HttpStatusCode.OK, "Hello World!");
+            var result = helloService.SayHello(username);
+            HttpResponseMessage response = Request.CreateResponse<string>(HttpStatusCode.OK, result);
+            return response;
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(string))]
+        [Route("SayHelloAsync")]
+        public async Task<HttpResponseMessage> SayHelloAsync()
+        {
+            var result = await helloService.SayHelloAsync("Jason");
+            HttpResponseMessage response = Request.CreateResponse<string>(HttpStatusCode.OK, result);
             return response;
         }
     }

@@ -8,10 +8,9 @@ namespace IDS.QueryService.Config
     /// </summary>
     public class ConfigManager
     {
-        #region Port
-        private const string KeyPort = "app.port";
-        private const int DefaultPort = 9000;
-        private int _port;
+        #region Pub Const
+        public const string KeyPort = "app.port";
+        public const int DefaultPort = 9000;
         #endregion
 
         #region Singleton 
@@ -26,20 +25,42 @@ namespace IDS.QueryService.Config
         #endregion
 
         /// <summary>
-        /// 
+        /// Get KeyPort Value from config
         /// </summary>
         public int Port {
             get {
-                if (ConfigurationManager.AppSettings[KeyPort] == null)
-                    _port = DefaultPort;
-                else
-                {
-                    int port = 0;
-                    Int32.TryParse(ConfigurationManager.AppSettings[KeyPort].ToString(), out port);
-                    if (port > 0)
-                        _port = port;
-                }
-                return _port;
+                return GetInt(KeyPort, DefaultPort);
+            }
+        }
+        /// <summary>
+        /// Get Int Value from Config
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="defaultVal"></param>
+        /// <returns></returns>
+        public int GetInt(string key, int defaultVal = 0)
+        {
+            if (ConfigurationManager.AppSettings[key] == null)
+                return defaultVal;
+            else
+            {
+                int val = defaultVal;
+                Int32.TryParse(ConfigurationManager.AppSettings[key].ToString(), out val);
+                return val;
+            }
+        }
+        /// <summary>
+        /// Get String Value from Config
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public string GetString(string key)
+        {
+            if (ConfigurationManager.AppSettings[key] == null)
+                return string.Empty;
+            else
+            {
+                return ConfigurationManager.AppSettings[key].ToString();
             }
         }
     }

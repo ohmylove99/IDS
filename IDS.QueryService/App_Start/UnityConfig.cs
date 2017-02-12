@@ -1,7 +1,8 @@
 namespace IDS.QueryService
 {
-    using Config;
+    using Controller;
     using Microsoft.Practices.Unity;
+    using Service;
     using System.Web.Http;
     using Unity.WebApi;
     /// <summary>
@@ -16,6 +17,11 @@ namespace IDS.QueryService
         public static void Setup(HttpConfiguration config)
         {
             var container = new UnityContainer();
+            container.RegisterType<HelloController>();
+
+            // Register interface
+            container.RegisterType<IHelloService, HelloService>();
+
             config.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

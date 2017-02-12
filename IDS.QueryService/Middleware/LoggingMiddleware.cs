@@ -12,7 +12,9 @@ namespace IDS.QueryService.Middleware
     public class LoggingMiddleware : OwinMiddleware
     {
         private readonly ILogger _log = Log.ForContext<LoggingMiddleware>();
-
+        /// <summary>
+        /// Set True will track the request address and header
+        /// </summary>
         public bool IsEnableTrace {get;set;}
         /// <summary>
         /// 

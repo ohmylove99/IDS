@@ -17,7 +17,6 @@ namespace IDS.QueryService
         /// <param name="appBuilder"></param>
         public static void Register(IAppBuilder appBuilder)
         {
-            //config.MessageHandlers.Add(new SetOwinRouteTemplateMessageHandler());
             Metric.Config
                 //.WithReporting(r => r.WithConsoleReport(TimeSpan.FromSeconds(30)))
                 .WithOwin(middleware => appBuilder.Use(middleware), myconfig => myconfig
